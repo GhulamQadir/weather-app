@@ -1,0 +1,186 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: url("https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette_1258-48251.jpg");
+  height: 100vh;
+  width: 100vw;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  margin-top: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#mainContainer {
+  width: 45%;
+  height: 55%;
+  margin: auto;
+  border: 2px solid grey;
+  background-color: #1e037c;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 5px 20px 5px;
+}
+#weatherDiv {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+.searchDiv {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+}
+#cityNameInput {
+  width: 80%;
+  border: none;
+  padding: 10px 5px 10px 15px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  object-fit: contain;
+  border-radius: 10px;
+}
+/* autofill input fields styling */
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+button:focus {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  border: none;
+}
+
+/* input on focus styling */
+input:focus {
+  outline: none;
+  border: none;
+}
+.searchBtn {
+  background-color: white;
+  border: none;
+  width: 15%;
+  height: 100%;
+  padding: 10px 10px 10px 0px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cityName {
+  color: white;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 0.8em;
+}
+.countryName {
+  font-size: 20px;
+}
+.date {
+  color: white;
+  font-size: 13px;
+}
+.showWeatherDiv {
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.currentWeatherImg {
+  height: 130px;
+  width: 170px;
+}
+.temp {
+  font-size: 38px;
+  color: white;
+  padding-top: 20px;
+  line-height: 0.8em;
+}
+.degree_celsius {
+  font-size: 15px;
+}
+.weather_descrip {
+  font-size: 16px;
+  color: rgb(220, 217, 217);
+}
+
+.max_min {
+  display: flex;
+  justify-content: space-around;
+}
+.max,
+.min {
+  color: rgb(165, 162, 162);
+}
+.feels-like {
+  color: white;
+  text-align: center;
+  padding-top: 10px;
+}
+.fa-temperature-half,
+.fa-wind {
+  color: white;
+  font-size: 19px;
+}
+
+.humidity_wind_Div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.humidity_img {
+  height: 50px;
+  vertical-align: middle;
+}
+
+.humidity_text,
+.wind_text {
+  font-size: 16px;
+  color: white;
+}
+
+@media screen and (max-width: 1325px) {
+  #weatherDiv {
+    width: 70%;
+  }
+  #searchDiv {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  #mainContainer {
+    width: 70%;
+    height: 70%;
+  }
+  #weatherDiv {
+    width: 80%;
+  }
+  .searchDiv {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 550px) {
+  #mainContainer {
+    width: 85%;
+    height: 77%;
+  }
+  #weatherDiv {
+    width: 95%;
+  }
+  .searchDiv {
+    width: 95%;
+  }
+}
+
+.error_message {
+  text-align: center;
+  color: red;
+  font-size: 18px;
+}
