@@ -1,3 +1,4 @@
+// Constructor function for weather type
 function WeatherType(type, img) {
     this.type = type;
     this.img = img
@@ -6,13 +7,14 @@ function WeatherType(type, img) {
 const mainContainer = document.getElementById('mainContainer')
 const weatherDiv = document.getElementById('weatherDiv')
 
+// showing weather on page
 displayWeather = (data) => {
 
     const countryCode = data.sys.country
     const cityName = data.name
     const { temp, feels_like, humidity, temp_max, temp_min } = data.main
     let wind = data.wind.deg
-    const weatherTypes = [new WeatherType("Clouds", "./images/clouds.png"), new WeatherType("Smoke", "./images/smoke.png"), new WeatherType("Rain", "./images/rain.png"), new WeatherType("Snow", "./images/snow.webp"), new WeatherType("Thunderstorm"), new WeatherType("Clear"), new WeatherType("Drizzle"), new WeatherType("Mist"), new WeatherType("Haze"), new WeatherType("Fog"), new WeatherType("Dust"), new WeatherType("Sand"), new WeatherType("Ash"), new WeatherType("Squall"), new WeatherType("Tornado"), new WeatherType("Extreme")]
+    const weatherTypes = [new WeatherType("Clouds", "./images/clouds.png"), new WeatherType("Smoke", "./images/smoke.png"), new WeatherType("Rain", "./images/rain.png"), new WeatherType("Snow", "./images/snow.webp"), new WeatherType("Thunderstorm", "./images/thunderstorm.png"), new WeatherType("Clear", "./images/clear.png"), new WeatherType("Drizzle", "./images/drizzle.webp"), new WeatherType("Mist", "./images/mist.png"), new WeatherType("Haze", "./images/haze.png"), new WeatherType("Fog", "./images/fog.png"), new WeatherType("Dust", "./images/dust.png"), new WeatherType("Sand", "./images/sand.png"), new WeatherType("Ash", "./images/ash.png"), new WeatherType("Squall", "./images/squall.png"), new WeatherType("Tornado", "./images/tornado.png"), new WeatherType("Extreme", "./images/extreme.png")]
 
     // get date
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -25,7 +27,6 @@ displayWeather = (data) => {
     const formattedDate = `${dayOfWeek}, ${month} ${dayOfMonth}`
 
     // current weather image
-    let weatherMatched = false
     let currentWeatherType = data.weather[0].main
 
     let currentWeatherDescription = data.weather[0].description.slice(0, 1).toUpperCase() + data.weather[0].description.slice(1)
@@ -33,6 +34,9 @@ displayWeather = (data) => {
     for (let i = 0; i < weatherTypes.length; i++) {
         if (weatherTypes[i].type === currentWeatherType) {
             image = weatherTypes[i].img
+            if (currentWeatherType === "Rain") {
+                document.body.style.backgroundImage = "url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1ca15dfa-1dcd-4e32-81f7-5f47fb6b5b69/dfr99g4-c56a9a87-3c95-46aa-9a22-252833072903.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzFjYTE1ZGZhLTFkY2QtNGUzMi04MWY3LTVmNDdmYjZiNWI2OVwvZGZyOTlnNC1jNTZhOWE4Ny0zYzk1LTQ2YWEtOWEyMi0yNTI4MzMwNzI5MDMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ZhbPSYhRoG-ag1ivKos4kwdjo2Ldpiy2dIIlLe5EaV4')"
+            }
             break;
         }
     }
@@ -48,7 +52,7 @@ displayWeather = (data) => {
             <p class="date">${formattedDate}</p>
             <div class="showWeatherDiv">
             <img class="currentWeatherImg" src="${image}" />
-            <p class="temp">${temp} <sup><span class="degree_celsius">ºC</span></sup><br><span class="weather_descrip">${currentWeatherDescription}</span></p>
+            <p class="temp">${temp}<sup><span class="degree_celsius">ºC</span></sup><br><span class="weather_descrip">${currentWeatherDescription}</span></p>
             </div>
             <div class="max_min">
             <p class="max">Max: ${temp_max}</p>
@@ -68,11 +72,19 @@ displayWeather = (data) => {
             `
         })
 }
+
+// showing error on page
 displayError = (error) => {
     let formatteddError = error.message.slice(0, 1).toUpperCase() + error.message.slice(1)
     weatherDiv.innerHTML = `<p class="error_message">${formatteddError}</p>`
 
 }
+
+// main.js
+const storedApiKey = JSON.parse(localStorage.getItem('apiKey'));
+
+
+// getting weather of current city
 getWeatherByCurrentLocation = () => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -95,6 +107,7 @@ getWeatherByCurrentLocation = () => {
 getWeatherByCurrentLocation()
 
 
+// getting weather of specific city
 getWeatherOfSpecificCity = () => {
     let cityName = document.getElementById('cityNameInput').value
     if (cityName) {
@@ -113,40 +126,3 @@ getWeatherOfSpecificCity = () => {
     }
 }
 
-
-// switch (true) {
-//     case cloudCover <= 20:
-//         console.log("It's clear or sunny in", cityName);
-//         break;
-//     case cloudCover <= 40:
-//         console.log("It's few clouds in", cityName);
-//         break;
-//     case cloudCover <= 60:
-//         console.log("It's scattered clouds in", cityName);
-//         break;
-//     case cloudCover <= 80:
-//         console.log("It's broken clouds in", cityName);
-//         break;
-//     default:
-//         console.log("It's overcast in", cityName);
-
-
-// 0 - 10 % Sunny / Clear
-// 10 - 20 % Fair
-// 20 - 30 % Mostly sunny
-// 30 - 60 % Partly cloudy
-// 60 - 70 % Partly sunny
-// 70 - 90 % Mostly cloudy
-// 90 - 100 % Overcast
-
-
-
-// const rain = data.rain;
-// const snow = data.snow;
-
-// if (rain) {
-//     console.log("It's raining in", cityName);
-// } else if (snow) {
-//     console.log("It's snowing in", cityName);
-// } else {
-//     console.log("It's not raining or snowing in", cityName)
