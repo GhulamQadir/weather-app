@@ -80,9 +80,6 @@ displayError = (error) => {
 
 }
 
-// main.js
-const storedApiKey = JSON.parse(localStorage.getItem('apiKey'));
-
 
 // getting weather of current city
 getWeatherByCurrentLocation = () => {
@@ -107,17 +104,20 @@ getWeatherByCurrentLocation = () => {
 getWeatherByCurrentLocation()
 
 
+
+
 // getting weather of specific city
 getWeatherOfSpecificCity = () => {
-    let cityName = document.getElementById('cityNameInput').value
-    if (cityName) {
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=c3278680e3b385ddef9e3a58ce4ebd20`)
+    let cityName = document.getElementById('cityNameInput')
+    if (cityName.value) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&units=metric&appid=c3278680e3b385ddef9e3a58ce4ebd20`)
             .then(response => response.json())
             .then((data) => {
                 if (data.cod === "404") {
                     displayError(data)
                 } else {
                     displayWeather(data)
+                    cityName.value = ""
                 }
             })
             .catch((error) => {
@@ -126,3 +126,11 @@ getWeatherOfSpecificCity = () => {
     }
 }
 
+
+// when user press enter
+document.addEventListener('keyup', (event) => {
+    console.log(event.key)
+    if (event.key === "Enter") {
+        getWeatherOfSpecificCity()
+    }
+})

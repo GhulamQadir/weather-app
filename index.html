@@ -16,8 +16,9 @@
     <div class="container">
         <div id="mainContainer">
             <div class="searchDiv">
+                <form onsubmit="getWeatherOfSpecificCity()"></form>
                 <input id="cityNameInput" type="text" placeholder="Search by city name">
-                <button class="searchBtn" onclick="getWeatherOfSpecificCity()"><i
+                <button id="searchBtn" onclick="getWeatherOfSpecificCity()"><i
                         class="fa-solid fa-magnifying-glass"></i></button>
             </div>
             <div id="weatherDiv"></div>

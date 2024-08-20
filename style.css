@@ -63,7 +63,7 @@ input:focus {
   outline: none;
   border: none;
 }
-.searchBtn {
+#searchBtn {
   background-color: white;
   border: none;
   width: 15%;
