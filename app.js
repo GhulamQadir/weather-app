@@ -136,7 +136,6 @@ getWeatherOfSpecificCity = () => {
 
 // when user press enter
 document.addEventListener('keyup', (event) => {
-    console.log(event.key)
     if (event.key === "Enter") {
         getWeatherOfSpecificCity()
     }
