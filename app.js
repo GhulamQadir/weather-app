@@ -9,7 +9,7 @@ const weatherDiv = document.getElementById('weatherDiv')
 
 // showing weather on page
 displayWeather = (data) => {
-
+    console.log(data)
     const countryCode = data.sys.country
     const cityName = data.name
     const { temp, feels_like, humidity, temp_max, temp_min } = data.main
@@ -108,21 +108,28 @@ getWeatherByCurrentLocation()
 
 // getting weather of specific city
 getWeatherOfSpecificCity = () => {
+    const reg = new RegExp('^[0-9]+$');
     let cityName = document.getElementById('cityNameInput')
+    let validCityNameError = { message: "Please enter a valid city name" }
     if (cityName.value) {
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&units=metric&appid=c3278680e3b385ddef9e3a58ce4ebd20`)
-            .then(response => response.json())
-            .then((data) => {
-                if (data.cod === "404") {
-                    displayError(data)
-                } else {
-                    displayWeather(data)
-                    cityName.value = ""
-                }
-            })
-            .catch((error) => {
-                displayError(error)
-            })
+        if (cityName.value.match(reg)) {
+            displayError(validCityNameError)
+        }
+        else {
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&units=metric&appid=c3278680e3b385ddef9e3a58ce4ebd20`)
+                .then(response => response.json())
+                .then((data) => {
+                    if (data.cod === "404") {
+                        displayError(data)
+                    } else {
+                        displayWeather(data)
+                        cityName.value = ""
+                    }
+                })
+                .catch((error) => {
+                    displayError(error)
+                })
+        }
     }
 }
 
